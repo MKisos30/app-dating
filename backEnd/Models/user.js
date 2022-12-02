@@ -1,21 +1,27 @@
-const { Schema, model } = require('mongoose');
-const userSchema = new Schema ({
+const { Schema, model } = require('mongoose')
+
+const UserSchema = new Schema({
     fullName: {
         type: String,
-        require: [
-            true, 'The user must have a name'
-        ],
+        require: [true, 'The user must have a name']
     },
     email: {
         type: String,
         require: [
             true, 'The user must have E-mail'
-        ]
+        ],
+        unique: true
     },
-    paswword: {
+    password: {
         type: String,
         require: [
             true, 'The user must have password'
+        ]
+    },
+    gender: {
+        type: String,
+        require: [
+            true, 'The user must have a gender'
         ]
     },
     firstEnter: {
@@ -34,11 +40,11 @@ const userSchema = new Schema ({
     dateOfBirth: {
         type: Date,
     },
-    hobbies: [{
-        typeOfHobbie: {
-            type: String
-        }
-    }],
+    // hobbies: [{
+    //     typeOfHobbie: {
+    //         type: String
+    //     }
+    // }],
     about: {
         type: String
     },
@@ -53,7 +59,7 @@ const userSchema = new Schema ({
             }
         }
     ],
-    like: [
+    likes: [
         {
             likeId: {
                 type: Schema.Types.ObjectId,
@@ -61,7 +67,7 @@ const userSchema = new Schema ({
             }
         }
     ],
-    view: [
+    views: [
         {
             viewId: {
                 type: Schema.Types.ObjectId,
@@ -71,4 +77,4 @@ const userSchema = new Schema ({
     ],
 })
 
-exports.User = model('User', userSchema);
+exports.User = model('User', UserSchema);

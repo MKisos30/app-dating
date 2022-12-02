@@ -1,14 +1,19 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-require('dotenv').config();
-app.use(express.json);
+const cookieParser = require('cookie-parser');
+const PORT = process.env.PORT || 1297;
+app.use(express.json());
+app.use(cookieParser());
 
 mongoose.connect(process.env.MONGO_URL, () => {
     console.log('DB connected')
 });
 
-const PORT = process.env.PORT || 1297;
+const userRoute = require('./Routes/user')
+app.use('/user', userRoute);
+
 app.listen(PORT, () => {
     console.log(`listen to http://localhost:${PORT}`)
 })
