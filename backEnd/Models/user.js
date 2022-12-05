@@ -26,7 +26,7 @@ const UserSchema = new Schema({
     },
     firstEnter: {
         type: Boolean,
-        default: true, 
+        default: true,
     },
     city: {
         type: String,
@@ -40,11 +40,11 @@ const UserSchema = new Schema({
     dateOfBirth: {
         type: Date,
     },
-    // hobbies: [{
-    //     typeOfHobbie: {
-    //         type: String
-    //     }
-    // }],
+    hobbies: [{
+        hobbie: {
+            type: String
+        }
+    }],
     about: {
         type: String
     },
