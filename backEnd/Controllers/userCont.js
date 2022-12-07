@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const { User } = require('../Models/user');
 const jwt = require('jwt-simple');
 const { View } = require('../models/view');
+const { Like } = require('../models/like');
 
 exports.register = async (req, res) => {
     try {
@@ -177,7 +178,6 @@ exports.oneUser = async (req, res) => {
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const mainUserId = decoded.id
 
-
         const userOne = await User.findById(searchUserId)
         const populateUser = await userOne.populate("views.viewId")
         const checkUserViews = populateUser.views.find(i => i.viewId.fromUserId == mainUserId)
@@ -212,4 +212,42 @@ exports.oneUser = async (req, res) => {
         res.send({ error: error.massage })
         console.log({ error })
     }
+}
+
+exports.likeUser = async (req, res) => {
+    try {
+        const searchUserId = req.body.id;
+        console.log(req.body)
+        const { userInfo } = req.cookies;
+        const decoded = await jwt.decode(userInfo, process.env.SECRET)
+        const mainUserId = decoded.id
+        
+        const userOne = await User.findById(searchUserId)
+        console.log(userOne)
+        const populateUser = await userOne.populate("likes.likeId")
+        const checkUserLikes = populateUser.likes.find(i=>i.likeId.fromUserId==mainUserId)
+
+        if(!checkUserLikes) {
+
+            const newLike = new Like({
+                fromUserId: mainUserId,
+                toUserId: searchUserId
+            })
+
+            await newLike.save()
+
+            const arrayLike = userOne.likes
+
+            arrayLike.push({
+                likeId: newLike.id
+            })
+
+            userOne.likes = arrayLike
+            await userOne.save()
+        }
+    } catch (error) {
+        res.send({error: error.massage})
+        console.log({error}) 
+    }
+
 }

@@ -1,12 +1,21 @@
 import axios from 'axios'
 import React from 'react'
-import {defer, useLoaderData} from 'react-router-dom'
+import {defer, useLoaderData, useParams} from 'react-router-dom'
 
 const User = () => {
+  const {id} = useParams()
+
+  const userLike = async (id) => {
+    const {data} = await axios.post('/user/likeUser', {id}) 
+  }
+
   const {user} = useLoaderData()
   console.log(user)
   return (
-    <div>User</div>
+    <div>
+      <h3>User</h3>
+      <button onClick={() => userLike(id)}>like</button>
+    </div>
   )
 }
 

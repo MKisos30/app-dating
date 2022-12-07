@@ -10,7 +10,8 @@ const {
     updateUser,
     addDetails,
     getUsersByGender,
-    oneUser
+    oneUser,
+    likeUser
 } = require('../Controllers/userCont')
 
 route
@@ -23,5 +24,6 @@ route
     .post('/addDetails', addDetails)
     .get('/getUsersByGender', getUsersByGender)
     .post('/oneUser', oneUser)
+    .post('/likeUser', likeUser)
 
 module.exports = route;
