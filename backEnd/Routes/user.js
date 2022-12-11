@@ -11,7 +11,8 @@ const {
     addDetails,
     getUsersByGender,
     oneUser,
-    likeUser
+    likeUser,
+    userLikes
 } = require('../Controllers/userCont')
 
 route
@@ -25,5 +26,6 @@ route
     .get('/getUsersByGender', getUsersByGender)
     .post('/oneUser', oneUser)
     .post('/likeUser', likeUser)
+    .get('/userLikes', userLikes)
 
 module.exports = route;

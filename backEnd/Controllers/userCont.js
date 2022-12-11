@@ -217,13 +217,11 @@ exports.oneUser = async (req, res) => {
 exports.likeUser = async (req, res) => {
     try {
         const searchUserId = req.body.id;
-        console.log(req.body)
         const { userInfo } = req.cookies;
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const mainUserId = decoded.id
         
         const userOne = await User.findById(searchUserId)
-        console.log(userOne)
         const populateUser = await userOne.populate("likes.likeId")
         const checkUserLikes = populateUser.likes.find(i=>i.likeId.fromUserId==mainUserId)
 
@@ -244,10 +242,28 @@ exports.likeUser = async (req, res) => {
 
             userOne.likes = arrayLike
             await userOne.save()
+
+            res.send({likes: true})
         }
     } catch (error) {
         res.send({error: error.massage})
         console.log({error}) 
     }
+}
 
+exports.userLikes = async (req, res) => {
+    try {
+        const { userInfo } = req.cookies;
+        const decoded = await jwt.decode(userInfo, process.env.SECRET)
+        const mainUserId = decoded.id
+
+        const user = await User.findById(mainUserId)
+        const numberOfLikes = user.likes.length
+        const numberOfViews= user.views.length
+        res.send({numberOfLikes, numberOfViews})
+
+    } catch (error) {
+        res.send({error: error.massage})
+        console.log({error}) 
+    }
 }

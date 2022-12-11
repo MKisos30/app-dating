@@ -13,6 +13,7 @@ import Layout from "../Views/Components/Layout";
 import LogIn, { logInAction } from "../Views/Components/LogIn";
 import MainPage, { mainPageLoader } from "../Views/Components/MainPage";
 import Register, { regAction } from "../Views/Components/Register";
+import { navBarLoader } from "../Views/Components/NavBar";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,7 +22,7 @@ const router = createBrowserRouter(
         <Route index element={<LogIn />} />
         <Route path="reg" element={<Register />} action={regAction} />
       </Route>
-      <Route path="/main-page" element={<Layout />}>
+      <Route path="/main-page" element={<Layout />} loader={navBarLoader}>
         <Route index element={<MainPage />} loader={mainPageLoader} />
         <Route path="user/:id" element={<User />} loader={userLoader} />
         <Route
