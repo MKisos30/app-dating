@@ -1,14 +1,17 @@
 import React from 'react'
-import { Form, redirect } from 'react-router-dom'
+import { Form, redirect, useActionData } from 'react-router-dom'
 import axios from 'axios'
 
 const Register = () => {
+  const data = useActionData()
   return (
     <Form action="/reg" method="post">
+        {data}
         <input type="text" name="fullName" placeholder="Enter Your Full Name"/>
         <input type="email" name="email" placeholder="Enter Your Email"/>
         <input type="password" name="password" placeholder="Password"/>
         <input type="password" name="confirmPassword" placeholder="Confirm Password"/>
+        <input type="date" name="dateOfBirth" placeholder="Enter your B-Day"/>
         <div>Looking for</div>
           <select name="lookingFor">
             <option value="men">Men</option>
@@ -26,8 +29,8 @@ const Register = () => {
 
 export default Register;
 
-const regSend = async ({ fullName, email, password, confirmPassword, lookingFor, gender }) =>{
-    const {data} = await axios.post('/user/register', {fullName, email, password, confirmPassword, lookingFor, gender})
+const regSend = async ({ fullName, email, password, confirmPassword, lookingFor, gender, dateOfBirth }) =>{
+    const {data} = await axios.post('/user/register', {fullName, email, password, confirmPassword, lookingFor, gender, dateOfBirth})
     return data;
 }
 
@@ -41,9 +44,11 @@ export const regAction = async ({ request }) => {
         confirmPassword: formData.get("confirmPassword"),
         lookingFor: formData.get("lookingFor"),
         gender: formData.get("gender"),
+        dateOfBirth: formData.get("dateOfBirth")
     }
 
     const data = await regSend(regUser)
+
     const {ok, massage,error} = data
 
     if(massage) return massage

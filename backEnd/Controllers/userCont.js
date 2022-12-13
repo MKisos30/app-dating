@@ -5,27 +5,42 @@ const jwt = require('jwt-simple');
 const { View } = require('../models/view');
 const { Like } = require('../models/like');
 
+const getAgeOfNewUser = (dateOfBirth) => {
+    const today = new Date();
+    const birthdate = new Date(dateOfBirth);
+    
+    const age = (Date.parse(today) - Date.parse(birthdate)) / (365 * 24 * 3600 * 1000);
+  
+    const ageFull = age.toFixed(1);
+    return ageFull
+}
+
 exports.register = async (req, res) => {
     try {
-        const { fullName, email, password, confirmPassword, lookingFor, gender } = req.body;
+        const { fullName, email, password, confirmPassword, lookingFor, gender, dateOfBirth } = req.body;
 
-        const userExist = await User.findOne({ email });
+        const agePotencialUser = getAgeOfNewUser(dateOfBirth)
 
-        if (!userExist) {
-            if (password === confirmPassword) {
-                const hashpass = await bcrypt.hash(password, 10)
-
-                const user = new User({ fullName, email, password: hashpass, lookingFor, gender, massages: [], likes: [], view: [] })
-                await user.save();
-
-                res.send({ ok: true })
+        if (agePotencialUser >= 18) {
+            const userExist = await User.findOne({ email });
+            
+            if (!userExist) {
+                if (password === confirmPassword) {
+                    const hashpass = await bcrypt.hash(password, 10)
+    
+                    const user = new User({ fullName, email, password: hashpass, lookingFor, gender, massages: [], likes: [], view: [], dateOfBirth })
+                    await user.save();
+    
+                    res.send({ ok: true })
+                } else {
+                    res.send({ ok: false, massage: 'The passwords is not same' })
+                }
             } else {
-                res.send({ ok: false, massage: 'The passwords is not same' })
+                res.send({ ok: false, massage: "User already exist" })
             }
         } else {
-            res.send({ ok: false, massage: "User already exist" })
+            res.send({ok:false, massage:"You must have be more than 18"})
         }
-
     } catch (error) {
         res.send({ error: error.massage })
         console.log({ error: error.massage })
@@ -130,7 +145,7 @@ exports.updateUser = async (req, res) => {
 exports.addDetails = async (req, res) => {
     try {
         const { userInfo } = req.cookies;
-        const { city, hobbies, about, dateOfBirth } = req.body;
+        const { city, hobbies, about } = req.body;
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const { id } = decoded;
 
@@ -139,7 +154,7 @@ exports.addDetails = async (req, res) => {
             city,
             hobbies,
             about, dateOfBirth,
-            // firstEnter: false
+            firstEnter: false
         })
         res.send({ addDetails: true })
     } catch (error) {
@@ -203,7 +218,7 @@ exports.oneUser = async (req, res) => {
         }
 
         if (userOne) {
-            const userDetails = { fullName: userOne.fullName, gender: userOne.gender, city: userOne.city, lookingFor: userOne.lookingFor, dateOfBirth: userOne.dateOfBirth, about: userOne.about, profilePicture: userOne.profilePicture }
+            const userDetails = { fullName: userOne.fullName, gender: userOne.gender, city: userOne.city, lookingFor: userOne.lookingFor, dateOfBirth: userOne.dateOfBirth, about: userOne.about, profilePicture: userOne.profilePicture, hobbies: userOne.hobbies }
             res.send({ ok: true, userDetails })
         } else {
             res.send({ ok: false, massage: "User does not exist" })

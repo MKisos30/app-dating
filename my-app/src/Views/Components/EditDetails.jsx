@@ -35,12 +35,10 @@ const EditDetails = () => {
     e.preventDefault();
 
     const city = e.target.elements.city.value;
-    const dateOfBirth = e.target.elements.dateOfBirth.value;
     const about = e.target.elements.about.value;
 
     const { data } = await axios.post("/user/addDetails", {
       city,
-      dateOfBirth,
       hobbies,
       about,
     });
@@ -58,11 +56,6 @@ const EditDetails = () => {
       onSubmit={handleEditDetails}
     >
       <input type="text" name="city" placeholder="Enter your city" />
-      <input
-        type="date"
-        name="dateOfBirth"
-        placeholder="Enter your date birth"
-      />
       <div>
         {hobbies.map((item, i) => {
           return (
