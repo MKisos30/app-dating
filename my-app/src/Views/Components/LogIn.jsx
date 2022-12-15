@@ -1,14 +1,17 @@
 import React from 'react';
-import { Form, redirect } from 'react-router-dom';
+import { Form, Link, redirect } from 'react-router-dom';
 import axios from 'axios';
 
 const LogIn = () => {
   return (
-    <Form action="/" method="post">
-        <input type="text" name="email" placeholder="Enter your email" />
-        <input type="password" name="password" placeholder="Enter your password" />
-        <button type="submit">LogIn</button>
-    </Form>
+    <div className="auth">
+      <Form action="/" method="post" className="logIn-form">
+          <input type="text" name="email" placeholder="Enter your email" />
+          <input type="password" name="password" placeholder="Enter your password" />
+          <button type="submit">LogIn</button>
+      </Form>
+      <Link to="/reg">Register</Link>
+    </div>
   )
 }
 
