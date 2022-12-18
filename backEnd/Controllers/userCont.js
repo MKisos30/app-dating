@@ -149,11 +149,11 @@ exports.addDetails = async (req, res) => {
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const { id } = decoded;
 
-        console.log(city, hobbies, about, dateOfBirth)
+        console.log(city, hobbies, about)
         await User.findByIdAndUpdate(id, {
             city,
             hobbies,
-            about, dateOfBirth,
+            about,
             firstEnter: false
         })
         res.send({ addDetails: true })
