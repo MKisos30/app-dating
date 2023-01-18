@@ -130,6 +130,7 @@ exports.updateUser = async (req, res) => {
     try {
         const { userInfo } = req.cookies;
         const { fullName, city, lookingFor, hobbies, about, profilePicture } = req.body;
+
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const { id } = decoded;
 

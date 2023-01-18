@@ -6,10 +6,13 @@ import {
   Await,
   Form,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
 // import ProfileUpdateInputs from "./ProfileUpdateInputs";
 
 const Profile = () => {
+  let location = useLocation();
+  console.log(location);
   const navigate = useNavigate();
   const { user } = useLoaderData();
   const [editInput, setEditInput] = useState(false);
@@ -57,6 +60,8 @@ const Profile = () => {
       hobbies,
       about,
       profilePicture,
+      fullName,
+      lookingFor,
     });
 
     const { updateUser } = data;
@@ -64,26 +69,25 @@ const Profile = () => {
     console.log(data);
     if (updateUser) {
       alert("User updated");
-      navigate("/main-page/profile");
+      window.location.reload();
     }
   };
 
   return (
     <Suspense fallback={<h2>Loading...</h2>}>
       <Await resolve={user}>
-        <Form
-          // action="/main-page/profile" method="post"
-          onSubmit={handleUpdateProfile}
-          className="formPfofile"
-        >
-          {/* <ProfileUpdateInputs type={"text"} name={"fullName"} defaultValue={user.fullName} placeholder={"Enter your name"} editInput={editInput} setEditInput={setEditInput}/>
-                <ProfileUpdateInputs type={"text"} name={"city"} defaultValue={user.city} placeholder={"Enter your city"} editInput={editInput} setEditInput={setEditInput}/> */}
+        <Form onSubmit={handleUpdateProfile} className="formPfofile">
           <input type="text" name="fullName" defaultValue={user.fullName} />
           <input type="text" name="city" defaultValue={user.city} />
-          <input type="text" name="lookingFor" defaultValue={user.lookingFor} />
-          {/* {user.hobbies.map((item, index) => {
-                    return <input key={index} type="text" name="hobbies" defaultValue={item.hobbie} />
-                })} */}
+          <div>
+            Looking for
+            <select name="lookingFor">
+              <option value={user.lookingFor}>{user.lookingFor}</option>
+              <option value={user.lookingFor == "women" ? "men" : "women"}>
+                {user.lookingFor == "women" ? "men" : "women"}
+              </option>
+            </select>
+          </div>
 
           <div>
             {hobbies.map((item, i) => {
@@ -99,7 +103,7 @@ const Profile = () => {
                     <button
                       className="hobbieButton"
                       type="button"
-                      onClick={removeInput}
+                      onClick={() => removeInput(i)}
                     >
                       X
                     </button>
@@ -141,47 +145,3 @@ export const mainUserProfile = async () => {
     user: await getUserProfile(),
   });
 };
-
-// const updateUserSend = async ({
-//   fullName,
-//   gender,
-//   city,
-//   lookingFor,
-//   dateOfBirth,
-//   about,
-//   profilePicture,
-//   hobbies,
-// }) => {
-//   const { data } = await axios.post("/user/updateUser", {
-//     fullName,
-//     gender,
-//     city,
-//     lookingFor,
-//     dateOfBirth,
-//     about,
-//     profilePicture,
-//     hobbies,
-//   });
-//   return data;
-// };
-
-// export const updateUserAction = async ({ request }) => {
-//   const formData = await request.formData();
-
-//   const updateUser = {
-//     fullName: formData.get("fullName"),
-//     gender: formData.get("gender"),
-//     city: formData.get("city"),
-//     lookingFor: formData.get("lookingFor"),
-//     dateOfBirth: formData.get("dateOfBirth"),
-//     about: formData.get("aboutMe"),
-//     profilePicture: formData.get("profilePicture"),
-//     hobbies: formData.get("hobbies"),
-//   };
-
-//   const data = await updateUserSend(updateUser);
-//   const { ok, massage, error } = data;
-
-//   // if (massage) return massage
-//   // if (error) return error
-// };

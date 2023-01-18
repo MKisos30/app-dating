@@ -53,9 +53,7 @@ const EditDetails = () => {
   };
 
   return (
-    <Form
-      onSubmit={handleEditDetails}
-    >
+    <Form onSubmit={handleEditDetails}>
       <input type="text" name="city" placeholder="Enter your city" />
       <div>
         {hobbies.map((item, i) => {
@@ -68,7 +66,7 @@ const EditDetails = () => {
                 type="text"
               />
               {hobbies.length !== 1 && (
-                <button type="button" onClick={removeInput}>
+                <button type="button" onClick={() => removeInput(i)}>
                   X
                 </button>
               )}
@@ -85,12 +83,14 @@ const EditDetails = () => {
         name="about"
         placeholder="Enter a few words about you"
       />
-      <input type="url" name="profilePicture" placeholder="Enter url of your profile picture" />
+      <input
+        type="url"
+        name="profilePicture"
+        placeholder="Enter url of your profile picture"
+      />
       <button type="submit">Send</button>
     </Form>
   );
 };
 
 export default EditDetails;
-
-
