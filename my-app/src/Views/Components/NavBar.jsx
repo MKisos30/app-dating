@@ -11,15 +11,17 @@ const NavBar = () => {
   return (
     <Suspense fallback={<h2>Loading...</h2>}>
       <Await resolve={numberOfLikes, numberOfViews}>
-        <div className="likesDiv">
-          <img src="/like.jpeg" alt="like icon" />
-          <p>{numberOfLikes}</p> 
+        <div className="navBarDiv">
+          <div className="likesDiv">
+            <img src="/like.jpeg" alt="like icon" />
+            <p>{numberOfLikes}</p> 
+          </div>
+          <div className="viewsDiv">
+              <img src="/view.jpeg" alt="view icon" />
+              <p>{numberOfViews}</p>
+          </div>
+          <Link to="profile">My profile</Link>
         </div>
-        <div className="viewsDiv">
-            <img src="/view.jpeg" alt="view icon" />
-            <p>{numberOfViews}</p>
-        </div>
-        <Link to="profile">My profile</Link>
       </Await>
     </Suspense>
   )
