@@ -1,9 +1,11 @@
-.likesDiv .viewsDiv {
-    width: 10%;
+.viewsDiv {
+    width: 50%;
+    color: burlywood;
     background-color: blueviolet;
+    display: flex;
 }
 
-.likesDiv img {
+.viewsDiv img {
     background-color: brown;
     width: 10%;
 }
