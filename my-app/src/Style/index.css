@@ -3,6 +3,7 @@
 @import './register.css';
 @import './user.css';
 @import './profile.css';
+@import './navBar.css';
 
 body {
     margin: 0;
