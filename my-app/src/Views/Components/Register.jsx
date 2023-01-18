@@ -4,9 +4,10 @@ import axios from 'axios'
 
 const Register = () => {
   const data = useActionData()
+  
   return (
     <div className="auth">
-      <Form action="/reg" method="post" className="logIn-form-reg">
+      <Form action="/reg" method="post" className="reg-form">
           {data}
           <input type="text" name="fullName" placeholder="Enter Your Full Name"/>
           <input type="email" name="email" placeholder="Enter Your Email"/>
@@ -35,7 +36,7 @@ const Register = () => {
 
 export default Register;
 
-const regSend = async ({ fullName, email, password, confirmPassword, lookingFor, gender, dateOfBirth }) =>{
+const regSend = async ({ fullName, email, password, confirmPassword, lookingFor, gender, dateOfBirth }) => {
     const {data} = await axios.post('/user/register', {fullName, email, password, confirmPassword, lookingFor, gender, dateOfBirth})
     return data;
 }

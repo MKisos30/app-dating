@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { Suspense } from 'react'
 import { Await, defer, useLoaderData } from 'react-router'
+import { Link } from 'react-router-dom'
 
 const NavBar = () => {
     const { data: {numberOfLikes, numberOfViews} } = useLoaderData()
@@ -16,6 +17,7 @@ const NavBar = () => {
         <div>
             Views: {numberOfViews}
         </div>
+        <Link to="profile">My profile</Link>
       </Await>
     </Suspense>
   )

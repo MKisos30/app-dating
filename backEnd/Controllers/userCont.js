@@ -129,31 +129,32 @@ exports.removeUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
     try {
         const { userInfo } = req.cookies;
-        const { fullName, city, lookingFor, hobbie, about, profilePicture } = req.body;
+        const { fullName, city, lookingFor, hobbies, about, profilePicture } = req.body;
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const { id } = decoded;
 
+        console.log(fullName, city, lookingFor, hobbies, about, profilePicture )
         // לעשות מניפולציה לתחביבים לעדכן אותם
-        await User.findByIdAndUpdate(id, { fullName, city, lookingFor, hobbie, about, profilePicture })
+        await User.findByIdAndUpdate(id, { fullName, city, lookingFor, hobbies, about, profilePicture })
         res.send({ updaeUser: true })
     } catch (error) {
-        res.send({ error: error.massage })
-        console.log({ error: error.massage })
+        res.send({ error: error })
+        console.log({ error: error })
     }
 }
 
 exports.addDetails = async (req, res) => {
     try {
         const { userInfo } = req.cookies;
-        const { city, hobbies, about } = req.body;
+        const { city, hobbies, about, profilePicture } = req.body;
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const { id } = decoded;
 
-        console.log(city, hobbies, about)
         await User.findByIdAndUpdate(id, {
             city,
             hobbies,
             about,
+            profilePicture,
             firstEnter: false
         })
         res.send({ addDetails: true })
@@ -280,5 +281,20 @@ exports.userLikes = async (req, res) => {
     } catch (error) {
         res.send({error: error.massage})
         console.log({error}) 
+    }
+}
+
+exports.getProfile = async (req, res) => {
+    try {
+         const { userInfo } = req.cookies;
+        const decoded = await jwt.decode(userInfo, process.env.SECRET)
+        const _id = decoded.id
+
+        const userProfile = await User.findById(_id)
+        res.send({userProfile})
+        
+    } catch (error) {
+        res.send({error: error.massage})
+        console.log({error})         
     }
 }

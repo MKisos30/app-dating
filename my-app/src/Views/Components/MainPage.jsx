@@ -14,7 +14,7 @@ const MainPage = () => {
         <div>We get the users</div>
         <div className="userList">
           {users.map((user) => (
-            <Link to={`user/${user._id}`}>
+            <Link to={`user/${user._id}`} key={user._id}>
               <h2>{user.fullName}</h2>
               <h2>{user.city}</h2>
               {/* <h2>{user.dateOfBirth}</h2> */}

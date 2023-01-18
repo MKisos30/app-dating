@@ -1,0 +1,32 @@
+.formPfofile {
+    background-color: rgb(141, 202, 201);
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 2% auto;
+    padding: 3% 2%;
+}
+
+.formPfofile input {
+    margin: 2%;
+}
+
+.hobbiesDivUpdate {
+    display: flex;
+    margin: 1.5%;
+}
+
+.formPfofile img {
+    width: 50%;
+    margin-left: 2%;
+}
+
+.hobbieButton {
+    width: 10%;
+    margin-left: 2%;
+}
+
+.updateButton {
+    width: 20%;
+    margin: 0 auto;
+}

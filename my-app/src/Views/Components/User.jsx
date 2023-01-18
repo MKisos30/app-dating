@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import {defer, useLoaderData, useParams} from 'react-router-dom'
+import {defer, Link, useLoaderData, useParams} from 'react-router-dom'
 
 const User = () => {
   const {id} = useParams()
@@ -14,35 +14,38 @@ const User = () => {
     }
   }
 
-  const {user} = useLoaderData()
+  const { user } = useLoaderData()
   console.log(user)
   return (
     <div>
-      <h3>Full name: {user.fullName}</h3>
-      <h3>Gender: {user.gender}</h3>
-      <h3>Living in: {user.city}</h3>
-      <h3>Looking for: {user.lookingFor}</h3>
-      <h3>Date of birth: {user.dateOfBirth}</h3>
-      <h3>About me: {user.about}</h3>
-      {
-        user.profilePicture ? 
-        <img src={user.profilePicture} alt="Profile Avatar"/>
-        :
-        null
-      }
-      <h3>My hobbies:
-        <ul>
-        {user.hobbies.map((item) => (
-           <li>
-             {
-               item.hobbie
-             }
-           </li>
-        ))}
-        </ul>
-        
-        </h3>
-      <button onClick={() => userLike(id)}>like</button>
+      <Link to="/main-page">All Users</Link>
+      <div className="user-div">
+        <h3>Full name: {user.fullName}</h3>
+        <h3>Gender: {user.gender}</h3>
+        <h3>Living in: {user.city}</h3>
+        <h3>Looking for: {user.lookingFor}</h3>
+        <h3>Date of birth: {user.dateOfBirth}</h3>
+        <h3>About me: {user.about}</h3>
+        {
+          user.profilePicture ? 
+          <img src={user.profilePicture} alt="Profile Avatar"/>
+          :
+          null
+        }
+        <h3>My hobbies:
+          <ul>
+          {user.hobbies.map((item) => (
+             <li>
+               {
+                 item.hobbie
+               }
+             </li>
+          ))}
+          </ul>
+          
+          </h3>
+        <button onClick={() => userLike(id)}>like</button>
+      </div>
     </div>
   )
 }
@@ -61,5 +64,4 @@ export const userLoader = async ({params}) =>{
   return defer({
      user: await oneUser(id)
   })
-
 }

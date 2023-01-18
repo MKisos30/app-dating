@@ -36,11 +36,13 @@ const EditDetails = () => {
 
     const city = e.target.elements.city.value;
     const about = e.target.elements.about.value;
+    const profilePicture = e.target.elements.profilePicture.value;
 
     const { data } = await axios.post("/user/addDetails", {
       city,
       hobbies,
       about,
+      profilePicture,
     });
 
     const { addDetails } = data;
@@ -52,7 +54,6 @@ const EditDetails = () => {
 
   return (
     <Form
-      // action="/main-page/edit-details" method="post"
       onSubmit={handleEditDetails}
     >
       <input type="text" name="city" placeholder="Enter your city" />
@@ -84,6 +85,7 @@ const EditDetails = () => {
         name="about"
         placeholder="Enter a few words about you"
       />
+      <input type="url" name="profilePicture" placeholder="Enter url of your profile picture" />
       <button type="submit">Send</button>
     </Form>
   );
@@ -91,36 +93,4 @@ const EditDetails = () => {
 
 export default EditDetails;
 
-// const addDetailsSend = async ({ city, dateOfBirth, hobbies, about }) => {
-//   // console.log(hobbies);
-//   // const { data } = await axios.post("/user/addDetails", {
-//   //   city,
-//   //   dateOfBirth,
-//   //   hobbies,
-//   //   about,
-//   // });
-//   // return data;
 
-// };
-
-// להוסיף מניפולציה על תחביבים
-// אם יש שגיאה להציג אותה - register + login + editDetails
-//לקבל מידע בעמוד הראשי על היוזר
-
-// export const addDetailsAction = async ({ request }) => {
-//   const formData = await request.formData();
-
-//   // console.log(request);
-//   const detailsUser = {
-//     city: formData.get("city"),
-//     dateOfBirth: formData.get("dateOfBirth"),
-//     hobbies: formData.get("hobbies"),
-//     about: formData.get("about"),
-//   };
-//   console.log(formData);
-
-//   const data = await addDetailsSend(detailsUser);
-
-//   // const { addDetails } = data;
-//   // if (addDetails) return redirect("/main-page");
-// };

@@ -1,6 +1,8 @@
 @import './mainPage.css';
 @import './logIn.css';
 @import './register.css';
+@import './user.css';
+@import './profile.css';
 
 body {
     margin: 0;
