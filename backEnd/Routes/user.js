@@ -1,9 +1,10 @@
-const { Router } = require('express')
+const { Router } = require('express');
+// const { register, logIn } = require('../Controllers/auth');
 const route = Router();
 
 const {
-    register,
-    logIn,
+    // register,
+    // logIn,
     // getUserData
     checkIfLogIn,
     removeUser,
@@ -17,10 +18,6 @@ const {
 } = require('../Controllers/userCont')
 
 route
-    .post('/register', register)
-    .post('/logIn', logIn)
-    // .get('/getUserData', getUserData)
-    .get('/checkIfLogIn', checkIfLogIn)
     .delete('/removeUser', removeUser)
     .post('/updateUser', updateUser)
     .post('/addDetails', addDetails)
