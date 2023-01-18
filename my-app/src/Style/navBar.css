@@ -1,21 +1,23 @@
 .navBarDiv {
     display: flex;
     align-items: center;
-}
-
-.navBarDiv div {
-    display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    align-content: space-around;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.navBarDiv p {
-    display: flex;
+    justify-content: space-between;
 }
 
 .likesDiv {
-    margin: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 11vh;
+    margin: 0 5%;
+
+}
+
+.viewsDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 15vh;
+    margin: 0 5%;
 }
