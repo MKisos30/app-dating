@@ -8,9 +8,9 @@ const { Like } = require('../models/like');
 const getAgeOfNewUser = (dateOfBirth) => {
     const today = new Date();
     const birthdate = new Date(dateOfBirth);
-    
+
     const age = (Date.parse(today) - Date.parse(birthdate)) / (365 * 24 * 3600 * 1000);
-  
+
     const ageFull = age.toFixed(1);
     return ageFull
 }
@@ -23,14 +23,14 @@ exports.register = async (req, res) => {
 
         if (agePotencialUser >= 18) {
             const userExist = await User.findOne({ email });
-            
+
             if (!userExist) {
                 if (password === confirmPassword) {
                     const hashpass = await bcrypt.hash(password, 10)
-    
+
                     const user = new User({ fullName, email, password: hashpass, lookingFor, gender, massages: [], likes: [], view: [], dateOfBirth })
                     await user.save();
-    
+
                     res.send({ ok: true })
                 } else {
                     res.send({ ok: false, massage: 'The passwords is not same' })
@@ -39,7 +39,7 @@ exports.register = async (req, res) => {
                 res.send({ ok: false, massage: "User already exist" })
             }
         } else {
-            res.send({ok:false, massage:"You must have be more than 18"})
+            res.send({ ok: false, massage: "You must have be more than 18" })
         }
     } catch (error) {
         res.send({ error: error.massage })
@@ -133,10 +133,8 @@ exports.updateUser = async (req, res) => {
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const { id } = decoded;
 
-        console.log(fullName, city, lookingFor, hobbies, about, profilePicture )
-        // לעשות מניפולציה לתחביבים לעדכן אותם
         await User.findByIdAndUpdate(id, { fullName, city, lookingFor, hobbies, about, profilePicture })
-        res.send({ updaeUser: true })
+        res.send({ updateUser: true })
     } catch (error) {
         res.send({ error: error })
         console.log({ error: error })
@@ -236,12 +234,12 @@ exports.likeUser = async (req, res) => {
         const { userInfo } = req.cookies;
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const mainUserId = decoded.id
-        
+
         const userOne = await User.findById(searchUserId)
         const populateUser = await userOne.populate("likes.likeId")
-        const checkUserLikes = populateUser.likes.find(i=>i.likeId.fromUserId==mainUserId)
+        const checkUserLikes = populateUser.likes.find(i => i.likeId.fromUserId == mainUserId)
 
-        if(!checkUserLikes) {
+        if (!checkUserLikes) {
 
             const newLike = new Like({
                 fromUserId: mainUserId,
@@ -259,11 +257,11 @@ exports.likeUser = async (req, res) => {
             userOne.likes = arrayLike
             await userOne.save()
 
-            res.send({likes: true})
+            res.send({ likes: true })
         }
     } catch (error) {
-        res.send({error: error.massage})
-        console.log({error}) 
+        res.send({ error: error.massage })
+        console.log({ error })
     }
 }
 
@@ -275,26 +273,26 @@ exports.userLikes = async (req, res) => {
 
         const user = await User.findById(mainUserId)
         const numberOfLikes = user.likes.length
-        const numberOfViews= user.views.length
-        res.send({numberOfLikes, numberOfViews})
+        const numberOfViews = user.views.length
+        res.send({ numberOfLikes, numberOfViews })
 
     } catch (error) {
-        res.send({error: error.massage})
-        console.log({error}) 
+        res.send({ error: error.massage })
+        console.log({ error })
     }
 }
 
 exports.getProfile = async (req, res) => {
     try {
-         const { userInfo } = req.cookies;
+        const { userInfo } = req.cookies;
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const _id = decoded.id
 
         const userProfile = await User.findById(_id)
-        res.send({userProfile})
-        
+        res.send({ userProfile })
+
     } catch (error) {
-        res.send({error: error.massage})
-        console.log({error})         
+        res.send({ error: error.massage })
+        console.log({ error })
     }
 }

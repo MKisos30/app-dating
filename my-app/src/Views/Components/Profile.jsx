@@ -1,9 +1,16 @@
 import axios from "axios";
 import React, { Suspense, useState } from "react";
-import { defer, useLoaderData, Await, Form } from "react-router-dom";
+import {
+  defer,
+  useLoaderData,
+  Await,
+  Form,
+  useNavigate,
+} from "react-router-dom";
 // import ProfileUpdateInputs from "./ProfileUpdateInputs";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const { user } = useLoaderData();
   const [editInput, setEditInput] = useState(false);
 
@@ -52,11 +59,13 @@ const Profile = () => {
       profilePicture,
     });
 
-    // const { addDetails } = data;
+    const { updateUser } = data;
 
-    // if (addDetails) {
-    //   navigate("/main-page");
-    // }
+    console.log(data);
+    if (updateUser) {
+      alert("User updated");
+      navigate("/main-page/profile");
+    }
   };
 
   return (
