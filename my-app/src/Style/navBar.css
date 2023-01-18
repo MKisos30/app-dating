@@ -1,0 +1,9 @@
+.likesDiv .viewsDiv {
+    width: 10%;
+    background-color: blueviolet;
+}
+
+.likesDiv img {
+    background-color: brown;
+    width: 10%;
+}

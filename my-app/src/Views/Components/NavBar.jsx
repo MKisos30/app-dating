@@ -11,11 +11,13 @@ const NavBar = () => {
   return (
     <Suspense fallback={<h2>Loading...</h2>}>
       <Await resolve={numberOfLikes, numberOfViews}>
-        <div>
-            Likes: {numberOfLikes}
+        <div className="likesDiv">
+          <img src="/Users/miriams/Documents/GitHub/app-dating/my-app/public/like.jpeg" alt="" />
+          <p>{numberOfLikes}</p> 
         </div>
-        <div>
-            Views: {numberOfViews}
+        <div className="viewsDiv">
+            <img src="../public/view.jpeg" alt="" />
+            <p>{numberOfViews}</p>
         </div>
         <Link to="profile">My profile</Link>
       </Await>
