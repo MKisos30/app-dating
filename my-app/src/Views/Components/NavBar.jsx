@@ -19,14 +19,14 @@ const NavBar = () => {
     <Suspense fallback={<h2>Loading...</h2>}>
       <Await resolve={data}>
         <div className="navBarDiv">
-          <div className="likesDiv">
+          <Link to="user/info/likes" className="likesDiv">
             <img src="/like.jpeg" alt="like icon" />
             <p>{data.numberOfLikes}</p> 
-          </div>
-          <div className="viewsDiv">
+          </Link>
+          <Link to="user/info/views" className="viewsDiv">
               <img src="/view.jpeg" alt="view icon" />
               <p>{data.numberOfViews}</p>
-          </div>
+          </Link>
           <Link to="profile">My profile</Link>
           {/* <Link to="/" onClick={userLogOut}>Log Out</Link> */}
           {/* לעשות עיצוב לכפתור */}

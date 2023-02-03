@@ -189,3 +189,37 @@ exports.getProfile = async (req, res) => {
         console.log({ error })
     }
 }
+
+exports.getDadtaLikes = async (req, res) => {
+    try {
+        const { userInfo } = req.cookies;
+        const decoded = await jwt.decode(userInfo, process.env.SECRET)
+        const _id = decoded.id
+        
+        const userData = await User.findById(_id)
+
+        console.log('%cuserCont.js line:201 userData.likes', 'color: #007acc;', userData.likes);
+    } catch (error) {
+        res.send({ error: error.massage })
+        console.log({ error })
+    }
+}
+
+exports.getUserViews = async (req, res) => {
+    try {
+        const { userInfo } = req.cookies;
+        const decoded = await jwt.decode(userInfo, process.env.SECRET)
+        const _id = decoded.id
+
+        const userData = await User.findById(_id) 
+        // console.log('%cuserCont.js line:215 userData.views', 'color: #007acc;', userData.views);
+
+        const populateUser = await userData.populate("views.viewId")
+        // console.log('%cuserCont.js line:218 populateUser', 'color: #007acc;', populateUser);
+
+        res.send(populateUser)
+    } catch (error) {
+        res.send({ error: error.massage })
+        console.log({ error })
+    }
+}

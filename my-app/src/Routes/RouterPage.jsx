@@ -14,6 +14,7 @@ import MainPage, { mainPageLoader } from "../Views/Components/MainPage";
 import Register, { regAction } from "../Views/Components/Register";
 import { navBarLoader } from "../Views/Components/NavBar";
 import Profile, { mainUserProfile } from "../Views/Components/Profile";
+import LinkPage, { getDataLoader } from "../Views/Components/LinkPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,9 @@ const router = createBrowserRouter(
       <Route path="/main-page" element={<Layout />} loader={navBarLoader}>
         <Route index element={<MainPage />} loader={mainPageLoader} />
         <Route path="user/:id" element={<User />} loader={userLoader} />
+        <Route path="user/info/:type" element={<LinkPage />} 
+        loader={getDataLoader}
+         />
         <Route path="profile" element={<Profile />} loader={mainUserProfile} />
         <Route
           path="edit-details"
