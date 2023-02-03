@@ -4,19 +4,5 @@
 4. לסדר את הnavbar והלינקים
 5. if the input empty alert about it
 
-<<<<<<< Updated upstream
-     
-4. לסדר את הnavbar והלינקים - view and likes in another page
-6. להוסיף את הלייק בעמוד הראשי + פונקציונליות
-9. route protected
-10. if the input empty alert about it
-11. function are not in action or loader router dom, add to redux
-12. לעשות כותרת ללייק וצפיות
-13. להוסיף לינק להופ פייג׳ בנאבאר
-
-
-
-=======
 6. route protected
 7. function are not in action or loader router dom, add to redux
->>>>>>> Stashed changes
