@@ -1,28 +1,39 @@
-import axios from 'axios';
-import React from 'react'
-import { defer } from 'react-router-dom';
+import axios from "axios";
+import React, { Suspense } from "react";
+import { Await, defer, useLoaderData, useParams } from "react-router-dom";
+import UserCard from "./UserCard";
 
 const LinkPage = () => {
-  return (
-    <div>LinkPage</div>
-  )
-}
+  const { users } = useLoaderData();
+  const { type } = useParams();
 
-export default LinkPage
+  return (
+    <Suspense fallback={<h2>Loading...</h2>}>
+      <Await resolve={users}>
+        <h1>{type === "views" ? "yes" : "no"}</h1>
+        <div className="userList">
+          {users.length > 0 ? (
+            users.map((user) => <UserCard user={user} />)
+          ) : (
+            <div>No Information</div>
+          )}
+        </div>
+      </Await>
+    </Suspense>
+  );
+};
+
+export default LinkPage;
 
 const getData = async (type) => {
-    const { data } = await axios.get(`/user/info/${type}`);
-    console.log('%cLinkPage.jsx line:15 data', 'color: #007acc;', data);
+  const { data } = await axios.get(`/user/info/${type}`);
+  return data;
+};
 
-    // const { userDetails } = data;
-    // return userDetails;
-  };
-  
-  export const getDataLoader = async ({ params }) => {
-    const { type } = params;
-  console.log('%cLinkPage.jsx line:19 type', 'color: #007acc;', type);
+export const getDataLoader = async ({ params }) => {
+  const { type } = params;
 
-    return defer({
-      user: await getData(type),
-    });
-  };
+  return defer({
+    users: await getData(type),
+  });
+};

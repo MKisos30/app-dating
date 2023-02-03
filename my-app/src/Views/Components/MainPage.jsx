@@ -1,14 +1,10 @@
 import axios from "axios";
 import React, { Suspense } from "react";
-import { Await, defer, Link, useLoaderData } from "react-router-dom";
-import GetAge from "./GetAge";
-import {Card, CardMedia, CardContent, Typography } from '@mui/material';
-
+import { Await, defer, useLoaderData } from "react-router-dom";
+import UserCard from "./UserCard";
 
 const MainPage = () => {
   const { users } = useLoaderData();
-  // console.log(users);
-  // const age = useAge(user.dateOfBirth);
 
   return (
     <Suspense fallback={<h2>Loading...</h2>}>
@@ -16,26 +12,7 @@ const MainPage = () => {
         <div>We get the users</div>
         <div className="userList">
           {users.map((user) => (
-            <Link to={`user/${user._id}`} key={user._id}>
-              <Card sx={{minWidth: 250,  maxWidth:350}}>
-                <CardMedia
-                sx={{height: 200}}
-                  image={user.profilePicture}
-                  title={user.fullName}
-                />
-                <CardContent>
-                  <Typography variant="h4" component="div">
-                    {user.fullName}
-                  </Typography>
-                  <Typography variant="h4" component="div">
-                    {user.city}
-                  </Typography>
-                  <Typography>
-                    <GetAge user={user} />
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Link>
+            <UserCard user={user} />
           ))}
         </div>
       </Await>
