@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { Suspense } from "react";
 import { Await, defer, Link, useLoaderData } from "react-router-dom";
 import GetAge from "./GetAge";
+import {Card, CardMedia, CardContent, Typography } from '@mui/material';
+
 
 const MainPage = () => {
   const { users } = useLoaderData();
@@ -15,11 +17,24 @@ const MainPage = () => {
         <div className="userList">
           {users.map((user) => (
             <Link to={`user/${user._id}`} key={user._id}>
-              <h2>{user.fullName}</h2>
-              <h2>{user.city}</h2>
-              {/* <h2>{user.dateOfBirth}</h2> */}
-              <GetAge user={user} />
-              {/* 1. לעשות חישוב לגיל */}
+              <Card sx={{minWidth: 250,  maxWidth:350}}>
+                <CardMedia
+                sx={{height: 200}}
+                  image={user.profilePicture}
+                  title={user.fullName}
+                />
+                <CardContent>
+                  <Typography variant="h4" component="div">
+                    {user.fullName}
+                  </Typography>
+                  <Typography variant="h4" component="div">
+                    {user.city}
+                  </Typography>
+                  <Typography>
+                    <GetAge user={user} />
+                  </Typography>
+                </CardContent>
+              </Card>
             </Link>
           ))}
         </div>

@@ -1,10 +1,13 @@
 import React from "react";
-import { Form, Link, redirect } from "react-router-dom";
+import { Form, Link, redirect, useActionData } from "react-router-dom";
 import axios from "axios";
 
 const LogIn = () => {
+  const data = useActionData();
+
   return (
     <div className="auth">
+      {data}
       <Form action="/" method="post" className="logIn-form">
         <input type="text" name="email" placeholder="Enter your email" />
         <input

@@ -3,12 +3,12 @@ export function useAge(dateOfBirth) {
   const birthdate = new Date(dateOfBirth);
 
   const age =
-    (Date.parse(today) - Date.parse(birthdate)) / (365 * 24 * 3600 * 1000);
+  (Date.parse(today) - Date.parse(birthdate)) / (365 * 24 * 3600 * 1000);
 
   const ageFull = age.toFixed(1);
   // console.log(ageFull);
 
-  const strAge = age.toString().slice(0, 2);
+  //const strAge = age.toString().slice(0, 2);
   // console.log(strAge);
 
   return ageFull;

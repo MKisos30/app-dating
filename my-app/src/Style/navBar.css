@@ -3,6 +3,7 @@
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
+    width: 40%;
 }
 
 .likesDiv {
@@ -11,7 +12,10 @@
     justify-content: space-between;
     width: 11vh;
     margin: 0 5%;
+}
 
+.likesDiv img {
+    width: 40%;
 }
 
 .viewsDiv {
@@ -20,4 +24,8 @@
     justify-content: space-between;
     width: 15vh;
     margin: 0 5%;
+}
+
+.viewsDiv img {
+    width: 40%;
 }

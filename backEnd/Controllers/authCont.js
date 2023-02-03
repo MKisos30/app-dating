@@ -55,20 +55,21 @@ exports.logIn = async (req, res) => {
 
         if (!userExist) {
             console.log("User doesn't exist")
-            return res.send({ ok: false, massage: "User doesn't exist" })
+            return res.send({ ok: false, error: "User doesn't exist" })
         }
 
         const samePass = await bcrypt.compare(password, userExist.password)
 
         if (!samePass) {
             console.log("Password is not correct")
-            return res.send({ ok: false, massage: 'Password is not correct' })
+            return res.send({ ok: false, error: 'Password is not correct' })
         }
 
         const payload = { name: userExist.name, id: userExist._id }
         const token = jwt.encode(payload, process.env.SECRET)
         res.cookie('userInfo', token, { maxAge: 1000 * 60 * 60 * 3, httpOnly: true })
         res.send({ ok: true, firstEnter: userExist.firstEnter })
+
     } catch (error) {
         res.send({ error: error.massage })
         console.log({ error: error.massage })
@@ -90,10 +91,13 @@ exports.checkIfLogIn = async (req, res) => {
 }
 
 exports.userOut = async (req, res) => {
+    //add res.send auth, catch in cluent, if false => navigate to /
     try {
-        res.clearCookie()
+        res.clearCookie('userInfo')
+        res.send({logIn:false})
     } catch (error) {
         res.send(error)
         console.log(error)
     }
 }
+

@@ -1,26 +1,38 @@
 import axios from 'axios'
 import React, { Suspense } from 'react'
-import { Await, defer, useLoaderData } from 'react-router'
+import { Await, defer, useLoaderData, useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 
 const NavBar = () => {
-    const { data: {numberOfLikes, numberOfViews} } = useLoaderData()
+    const { data } = useLoaderData()
+    const navigate = useNavigate()
+    
+    const userLogOut = async () => {
+      const { data } = await axios.get('/auth/logOut')
+      const {logIn} = data;
+      if(!logIn) {
+        navigate('/')
+      }
+    }
 
-    console.log(numberOfLikes, numberOfViews)
-
-  return (
+    return (
     <Suspense fallback={<h2>Loading...</h2>}>
-      <Await resolve={numberOfLikes, numberOfViews}>
+      <Await resolve={data}>
         <div className="navBarDiv">
           <div className="likesDiv">
             <img src="/like.jpeg" alt="like icon" />
-            <p>{numberOfLikes}</p> 
+            <p>{data.numberOfLikes}</p> 
           </div>
           <div className="viewsDiv">
               <img src="/view.jpeg" alt="view icon" />
-              <p>{numberOfViews}</p>
+              <p>{data.numberOfViews}</p>
           </div>
           <Link to="profile">My profile</Link>
+          {/* <Link to="/" onClick={userLogOut}>Log Out</Link> */}
+          {/* לעשות עיצוב לכפתור */}
+          <button 
+          onClick={userLogOut}
+          >Log Out</button>
         </div>
       </Await>
     </Suspense>

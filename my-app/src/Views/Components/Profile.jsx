@@ -5,20 +5,16 @@ import {
   useLoaderData,
   Await,
   Form,
-  useNavigate,
-  useLocation,
+  // useNavigate,
+  // useLocation,
 } from "react-router-dom";
 // import ProfileUpdateInputs from "./ProfileUpdateInputs";
 
 const Profile = () => {
-  let location = useLocation();
-  console.log(location);
-  const navigate = useNavigate();
   const { user } = useLoaderData();
-  const [editInput, setEditInput] = useState(false);
+ // const [editInput, setEditInput] = useState(false);
 
   const [hobbies, setHobbies] = useState(user.hobbies);
-  console.log(hobbies);
 
   const addInput = () => {
     setHobbies((s) => {
@@ -66,7 +62,6 @@ const Profile = () => {
 
     const { updateUser } = data;
 
-    console.log(data);
     if (updateUser) {
       alert("User updated");
       window.location.reload();
@@ -83,8 +78,8 @@ const Profile = () => {
             Looking for
             <select name="lookingFor">
               <option value={user.lookingFor}>{user.lookingFor}</option>
-              <option value={user.lookingFor == "women" ? "men" : "women"}>
-                {user.lookingFor == "women" ? "men" : "women"}
+              <option value={user.lookingFor === "women" ? "men" : "women"}>
+                {user.lookingFor === "women" ? "men" : "women"}
               </option>
             </select>
           </div>
@@ -117,7 +112,7 @@ const Profile = () => {
           </div>
 
           <input type="text" name="aboutMe" defaultValue={user.about} />
-          <img src={user.profilePicture} alt="Profile picture" />
+          <img src={user.profilePicture} alt="User Pic Profile" />
           <input
             type="url"
             name="profilePicture"
