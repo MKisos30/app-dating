@@ -8,6 +8,8 @@
 9. route protected
 10. if the input empty alert about it
 11. function are not in action or loader router dom, add to redux
+12. לעשות כותרת ללייק וצפיות
+13. להוסיף לינק להופ פייג׳ בנאבאר
 
 
 
