@@ -195,10 +195,19 @@ exports.getDadtaLikes = async (req, res) => {
         const { userInfo } = req.cookies;
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const _id = decoded.id
-        
-        const userData = await User.findById(_id)
 
-        console.log('%cuserCont.js line:201 userData.likes', 'color: #007acc;', userData.likes);
+        const userData = await User.findById(_id)
+        const populateUser = await userData.populate("likes.likeId")
+
+        const usersIds = populateUser.likes.map(i => i.likeId.fromUserId)
+
+        const allUsers = await User.find({
+            '_id': {
+                $in: usersIds
+            }
+        })
+
+        res.send(allUsers)
     } catch (error) {
         res.send({ error: error.massage })
         console.log({ error })
@@ -211,13 +220,18 @@ exports.getUserViews = async (req, res) => {
         const decoded = await jwt.decode(userInfo, process.env.SECRET)
         const _id = decoded.id
 
-        const userData = await User.findById(_id) 
-        // console.log('%cuserCont.js line:215 userData.views', 'color: #007acc;', userData.views);
-
+        const userData = await User.findById(_id)
         const populateUser = await userData.populate("views.viewId")
-        // console.log('%cuserCont.js line:218 populateUser', 'color: #007acc;', populateUser);
 
-        res.send(populateUser)
+        const usersIds = populateUser.views.map(i => i.viewId.fromUserId)
+
+        const allUsers = await User.find({
+            '_id': {
+                $in: usersIds
+            }
+        })
+
+        res.send(allUsers)
     } catch (error) {
         res.send({ error: error.massage })
         console.log({ error })
