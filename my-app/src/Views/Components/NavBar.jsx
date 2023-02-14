@@ -1,11 +1,11 @@
 import axios from 'axios'
 import React, { Suspense } from 'react'
-import { Await, defer, useLoaderData, useNavigate } from 'react-router'
-import { Link } from 'react-router-dom'
+import { Await, defer, useLoaderData, useNavigate, Link, useLocation } from 'react-router-dom'
 
 const NavBar = () => {
     const { data } = useLoaderData()
     const navigate = useNavigate()
+    const location = useLocation();
     
     const userLogOut = async () => {
       const { data } = await axios.get('/auth/logOut')
@@ -19,6 +19,9 @@ const NavBar = () => {
     <Suspense fallback={<h2>Loading...</h2>}>
       <Await resolve={data}>
         <div className="navBarDiv">
+          {
+            location.pathname == '/main-page' ? null : <Link to="/main-page">Home</Link>
+          }
           <Link to="user/info/likes" className="likesDiv">
             <img src="/like.jpeg" alt="like icon" />
             <p>{data.numberOfLikes}</p> 

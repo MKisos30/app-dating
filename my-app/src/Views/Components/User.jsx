@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { defer, Link, useLoaderData, useParams } from 'react-router-dom';
 import {
   Card,
@@ -15,6 +15,7 @@ import {
 
 const User = () => {
   const { id } = useParams();
+  const { user } = useLoaderData();
 
   const userLike = async (id) => {
     const { data } = await axios.post('/user/likeUser', { id });
@@ -25,8 +26,17 @@ const User = () => {
     }
   };
 
-  const { user } = useLoaderData();
-  console.log(user);
+  const toDate = date => {
+     return new Intl.DateTimeFormat("en-EN", {
+      day: '2-digit',
+      month:'2-digit',
+      year:'numeric'
+    })
+    .format(new Date(date))
+  }
+
+  const birthDay = toDate(user.dateOfBirth)
+
   return (
     <div>
       <Link to="/main-page">All Users</Link>
@@ -45,8 +55,9 @@ const User = () => {
           <Typography variant="h6" component="div">
             Looking for: {user.lookingFor}
           </Typography>
-          <Typography variant="h6" component="div">
-            Date of birth: {user.dateOfBirth}
+          <Typography variant="h6" component="div" className="dateOfBirth">
+             Date of birth: {birthDay}
+            
           </Typography>
           <Typography variant="h6" component="div">
             About me: {user.about}

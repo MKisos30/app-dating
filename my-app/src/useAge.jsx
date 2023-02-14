@@ -2,13 +2,15 @@ export function useAge(dateOfBirth) {
   const today = new Date();
   const birthdate = new Date(dateOfBirth);
 
-  const age =
-  (Date.parse(today) - Date.parse(birthdate)) / (365 * 24 * 3600 * 1000);
+  const age = (Date.parse(today) - Date.parse(birthdate)) / (365 * 24 * 3600 * 1000);
 
   const ageFull = age.toFixed(1);
   // console.log(ageFull);
 
   //const strAge = age.toString().slice(0, 2);
+
+  //2.546494 - 2.
+  // 15.65465465 - 15
   // console.log(strAge);
 
   return ageFull;
