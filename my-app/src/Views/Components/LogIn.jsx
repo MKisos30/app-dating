@@ -7,6 +7,7 @@ const LogIn = () => {
 
   return (
     <div className="auth">
+      <h1>Log-in Page</h1>
       {data}
       <Form action="/" method="post" className="logIn-form">
         <input type="text" name="email" placeholder="Enter your email" />

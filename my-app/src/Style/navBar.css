@@ -3,7 +3,8 @@
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    width: 40%;
+    width: 100%;
+    background-color: burlywood;
 }
 
 .likesDiv {

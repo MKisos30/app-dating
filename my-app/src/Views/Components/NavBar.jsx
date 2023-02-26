@@ -22,15 +22,19 @@ const NavBar = () => {
           {
             location.pathname == '/main-page' ? null : <Link to="/main-page">Home</Link>
           }
-          <Link to="user/info/likes" className="likesDiv">
-            <img src="/like.jpeg" alt="like icon" />
-            <p>{data.numberOfLikes}</p> 
-          </Link>
-          <Link to="user/info/views" className="viewsDiv">
-              <img src="/view.jpeg" alt="view icon" />
-              <p>{data.numberOfViews}</p>
-          </Link>
-          <Link to="profile">My profile</Link>
+          {
+            location.pathname == '/main-page/edit-details' ? null : <>
+              <Link to="user/info/likes" className="likesDiv">
+                <img src="/like.jpeg" alt="like icon" />
+                <p>{data.numberOfLikes}</p> 
+              </Link>
+              <Link to="user/info/views" className="viewsDiv">
+                  <img src="/view.jpeg" alt="view icon" />
+                  <p>{data.numberOfViews}</p>
+              </Link>
+              <Link to="profile">My profile</Link>
+            </>
+          }
           {/* <Link to="/" onClick={userLogOut}>Log Out</Link> */}
           {/* לעשות עיצוב לכפתור */}
           <button 

@@ -10,7 +10,7 @@ const LinkPage = () => {
   return (
     <Suspense fallback={<h2>Loading...</h2>}>
       <Await resolve={users}>
-        <h1>{type === "views" ? "yes" : "no"}</h1>
+        <h1>{type === "views" ? "Views" : "Likes"}</h1>
         <div className="userList">
           {users.length > 0 ? (
             users.map((user) => <UserCard user={user} />)

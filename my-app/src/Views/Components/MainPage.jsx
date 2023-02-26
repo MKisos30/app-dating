@@ -9,7 +9,7 @@ const MainPage = () => {
   return (
     <Suspense fallback={<h2>Loading...</h2>}>
       <Await resolve={users}>
-        <div>We get the users</div>
+        <h1>Home Page</h1>
         <div className="userList">
           {users.map((user) => (
             <UserCard user={user} />

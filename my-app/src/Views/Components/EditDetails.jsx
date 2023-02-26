@@ -2,6 +2,8 @@ import React from "react";
 import { Form, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import Box from '@mui/material/Box';
+
 
 const EditDetails = () => {
   const navigate = useNavigate();
@@ -53,15 +55,25 @@ const EditDetails = () => {
   };
 
   return (
-    <Form onSubmit={handleEditDetails}>
+    <Box component="div"
+    className ="boxEditDetails"
+    sx={{
+    p: 2, 
+    border: '1px solid grey',
+    width: 600
+    }}>
+    <Form onSubmit={handleEditDetails} className="editDetailsForm">
+      <h1>Add More Details About You</h1>
       <input type="text" name="city" placeholder="Enter your city" />
       <div>
+        <div className="hobbiesLine" >Hobbies:</div>
         {hobbies.map((item, i) => {
           return (
             <div key={i}>
               <input
                 onChange={handleChange}
                 value={item.hobbie}
+                placeholder="Enter your hobbie"
                 id={i}
                 type="text"
               />
@@ -73,7 +85,7 @@ const EditDetails = () => {
             </div>
           );
         })}
-        <button onClick={addInput} type="button">
+        <button className="hobbiesBut" onClick={addInput} type="button">
           +
         </button>
       </div>
@@ -90,6 +102,7 @@ const EditDetails = () => {
       />
       <button type="submit">Send</button>
     </Form>
+    </Box>
   );
 };
 

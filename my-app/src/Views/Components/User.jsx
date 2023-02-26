@@ -11,6 +11,7 @@ import {
   ListItemText,
   CardActions,
   Button,
+  Box,
 } from '@mui/material';
 
 const User = () => {
@@ -39,10 +40,20 @@ const User = () => {
 
   return (
     <div>
-      <Link to="/main-page">All Users</Link>
+      <Box component="div"
+      className="boxAllUsers"
+      sx={{
+      p: 2, 
+      border: '1px solid grey',
+      }}>
+        <Link to="/main-page">All Users</Link>
+      </Box>
 
-      <Card sx={{ maxWidth: 500 }}>
+      <Card sx={{ maxWidth: 500 }} className="userCard">
         <CardContent>
+          <CardActions>
+            <Link to="/main-page/chat/563437128">Chat</Link>
+          </CardActions>
           <Typography variant="h6" component="div">
             Full name: {user.fullName}
           </Typography>

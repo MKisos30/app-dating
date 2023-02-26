@@ -13,3 +13,12 @@
     display: flex;
     justify-content: center;
 }
+
+.boxAllUsers {
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+.userCard {
+    margin: 2%;
+}

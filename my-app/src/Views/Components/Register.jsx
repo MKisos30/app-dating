@@ -7,6 +7,7 @@ const Register = () => {
 
   return (
     <div className="auth">
+      <h1>Register Page</h1>
       <Form action="/reg" method="post" className="reg-form">
         {data}
         <input type="text" name="fullName" placeholder="Enter Your Full Name" />

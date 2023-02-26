@@ -71,6 +71,7 @@ const Profile = () => {
   return (
     <Suspense fallback={<h2>Loading...</h2>}>
       <Await resolve={user}>
+        <h1>My Profile</h1>
         <Form onSubmit={handleUpdateProfile} className="formPfofile">
           <input type="text" name="fullName" defaultValue={user.fullName} />
           <input type="text" name="city" defaultValue={user.city} />

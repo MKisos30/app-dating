@@ -15,6 +15,7 @@ import Register, { regAction } from "../Views/Components/Register";
 import { navBarLoader } from "../Views/Components/NavBar";
 import Profile, { mainUserProfile } from "../Views/Components/Profile";
 import LinkPage, { getDataLoader } from "../Views/Components/LinkPage";
+import Chat from "../Views/Components/Chat";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
         <Route path="user/info/:type" element={<LinkPage />} 
         loader={getDataLoader}
          />
+        <Route path="chat/:chatid" element={<Chat />} />
         <Route path="profile" element={<Profile />} loader={mainUserProfile} />
         <Route
           path="edit-details"
